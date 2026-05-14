@@ -1,0 +1,237 @@
+Based on the image 2026 derivacije.png, here are the step-by-step solutions for both parts of problem 3.
+
+Part (a): Derivation by Definition
+The task is to find the derivative of f(x)=ln 
+2
+ x using the limit definition of a derivative:
+
+f 
+′
+ (x)= 
+h→0
+lim
+​
+  
+h
+f(x+h)−f(x)
+​
+ 
+1. Set up the limit:
+
+f 
+′
+ (x)= 
+h→0
+lim
+​
+  
+h
+ln 
+2
+ (x+h)−ln 
+2
+ (x)
+​
+ 
+2. Use the difference of squares formula a 
+2
+ −b 
+2
+ =(a−b)(a+b):
+
+f 
+′
+ (x)= 
+h→0
+lim
+​
+  
+h
+(ln(x+h)−lnx)(ln(x+h)+lnx)
+​
+ 
+3. Apply logarithmic properties:
+ln(x+h)−lnx=ln( 
+x
+x+h
+​
+ )=ln(1+ 
+x
+h
+​
+ ).
+
+f 
+′
+ (x)= 
+h→0
+lim
+​
+ [ 
+h
+ln(1+ 
+x
+h
+​
+ )
+​
+ ⋅(ln(x+h)+lnx)]
+4. Solve the limit:
+
+For the first part, multiply and divide by x to use the standard limit lim 
+t→0
+​
+  
+t
+ln(1+t)
+​
+ =1:
+
+x
+1
+​
+ ⋅ 
+h→0
+lim
+​
+  
+x
+h
+​
+ 
+ln(1+ 
+x
+h
+​
+ )
+​
+ = 
+x
+1
+​
+ ⋅1= 
+x
+1
+​
+ 
+For the second part, simply substitute h=0:
+
+h→0
+lim
+​
+ (ln(x+h)+lnx)=lnx+lnx=2lnx
+Final Result for (a):
+
+f 
+′
+ (x)= 
+x
+1
+​
+ ⋅2lnx= 
+x
+2lnx
+​
+ 
+Part (b): Evaluate f 
+′
+ (0)
+Given f(x)=xtanx+(x 
+2
+ +1) 
+x
+ , we need to find the derivative and then evaluate it at x=0.
+
+1. Differentiate the first term u(x)=xtanx:
+Using the product rule (uv) 
+′
+ =u 
+′
+ v+uv 
+′
+ :
+
+u 
+′
+ (x)=1⋅tanx+x⋅sec 
+2
+ x
+At x=0: u 
+′
+ (0)=tan(0)+0⋅sec 
+2
+ (0)=0+0=0.
+
+2. Differentiate the second term v(x)=(x 
+2
+ +1) 
+x
+ :
+Use logarithmic differentiation or the identity a 
+b
+ =e 
+blna
+ :
+
+v(x)=e 
+xln(x 
+2
+ +1)
+ 
+v 
+′
+ (x)=e 
+xln(x 
+2
+ +1)
+ ⋅ 
+dx
+d
+​
+ [xln(x 
+2
+ +1)]
+Using the product rule on the exponent:
+
+v 
+′
+ (x)=(x 
+2
+ +1) 
+x
+ ⋅(1⋅ln(x 
+2
+ +1)+x⋅ 
+x 
+2
+ +1
+2x
+​
+ )
+At x=0:
+
+v 
+′
+ (0)=(0 
+2
+ +1) 
+0
+ ⋅(ln(1)+ 
+1
+0
+​
+ )=1⋅(0+0)=0
+3. Combine results:
+
+f 
+′
+ (0)=u 
+′
+ (0)+v 
+′
+ (0)=0+0
+Final Result for (b):
+
+f 
+′
+ (0)=0

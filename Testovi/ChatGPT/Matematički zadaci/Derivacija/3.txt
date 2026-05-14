@@ -1,0 +1,328 @@
+(a) Izvedite derivaciju funkcije po definiciji
+
+Zadata funkcija je
+
+f(x)=ln
+2
+x
+
+Po definiciji derivacije:
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+h
+f(x+h)−f(x)
+	​
+
+.
+
+Dakle,
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+h
+ln
+2
+(x+h)−ln
+2
+x
+	​
+
+.
+
+Primijenimo razliku kvadrata:
+
+ln
+2
+(x+h)−ln
+2
+x=(ln(x+h)−lnx)(ln(x+h)+lnx).
+
+Dobijamo
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+(
+h
+ln(x+h)−lnx
+	​
+
+)(ln(x+h)+lnx).
+
+Koristimo
+
+ln(x+h)−lnx=ln(
+x
+x+h
+	​
+
+)=ln(1+
+x
+h
+	​
+
+).
+
+Tada je
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+h
+ln(1+
+x
+h
+	​
+
+)
+	​
+
+(ln(x+h)+lnx).
+
+Pišemo
+
+h
+ln(1+
+x
+h
+	​
+
+)
+	​
+
+=
+x
+1
+	​
+
+⋅
+x
+h
+	​
+
+ln(1+
+x
+h
+	​
+
+)
+	​
+
+.
+
+Kako vrijedi
+
+u→0
+lim
+	​
+
+u
+ln(1+u)
+	​
+
+=1,
+
+dobijamo
+
+f
+′
+(x)=
+x
+1
+	​
+
+⋅(2lnx).
+
+Zato je
+
+f
+′
+(x)=
+x
+2lnx
+	​
+
+	​
+
+.
+(b) Odredite f
+′
+(0)
+
+Data je funkcija
+
+f(x)=xtanx+(x
+2
++1)
+x
+
+Traži se
+
+f
+′
+(0)=
+h→0
+lim
+	​
+
+h
+f(h)−f(0)
+	​
+
+.
+
+Prvo izračunamo f(0):
+
+f(0)=0⋅tan0+(0
+2
++1)
+0
+=0+1=1.
+
+Dakle,
+
+f
+′
+(0)=
+h→0
+lim
+	​
+
+h
+htanh+(h
+2
++1)
+h
+−1
+	​
+
+.
+
+Razdvojimo:
+
+f
+′
+(0)=
+h→0
+lim
+	​
+
+tanh+
+h→0
+lim
+	​
+
+h
+(1+h
+2
+)
+h
+−1
+	​
+
+.
+
+Prvi limes:
+
+h→0
+lim
+	​
+
+tanh=0.
+
+Za drugi limes stavimo
+
+(1+h
+2
+)
+h
+=e
+hln(1+h
+2
+)
+.
+
+Tada je
+
+h
+(1+h
+2
+)
+h
+−1
+	​
+
+=
+h
+e
+hln(1+h
+2
+)
+−1
+	​
+
+.
+
+Kako je
+
+hln(1+h
+2
+)∼h
+3
+→0,
+
+vrijedi
+
+e
+hln(1+h
+2
+)
+−1∼hln(1+h
+2
+)∼h
+3
+.
+
+Zato
+
+h
+e
+hln(1+h
+2
+)
+−1
+	​
+
+∼h
+2
+→0.
+
+Dakle i drugi limes je 0.
+
+Konačno:
+
+f
+′
+(0)=0
+	​
+
+.

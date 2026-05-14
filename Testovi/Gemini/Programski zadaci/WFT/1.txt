@@ -1,0 +1,80 @@
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+
+public class ListTypeAnalyzer extends SimpleFileVisitor<Path> {
+
+    private final List<String> targetExtensions;
+    private final Map<String, Long> totalSizesByExtension = new HashMap<>();
+    private long currentDirectoryTotalSize = 0;
+
+    public ListTypeAnalyzer(List<String> extensions) {
+        this.targetExtensions = extensions;
+        // Inicijalizacija mape kako bi svi ključevi bili prisutni, čak i ako je iznos 0
+        for (String ext : extensions) {
+            totalSizesByExtension.put(ext, 0L);
+        }
+    }
+
+    public Map<String, Long> getSizesByExtension() {
+        return totalSizesByExtension;
+    }
+
+    @Override
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+        // Resetiramo brojač za novi direktorij, ali moramo paziti na ugniježđene strukture.
+        // Strategija: Veličina se računa samo za datoteke u trenutnom direktoriju.
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+        String fileName = file.getFileName().toString();
+        String extension = getExtension(fileName);
+
+        if (targetExtensions.contains(extension)) {
+            long fileSize = attrs.size();
+            
+            // 1. Ažuriraj globalnu mapu po ekstenzijama
+            totalSizesByExtension.put(extension, totalSizesByExtension.get(extension) + fileSize);
+            
+            // 2. Dodaj veličinu u privremeni brojač za trenutni direktorij
+            currentDirectoryTotalSize += fileSize;
+        }
+        
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+        // Ispisujemo ukupnu veličinu datoteka sa zadanim ekstenzijama u ovom direktoriju
+        System.out.println("Direktorij: " + dir + " | Veličina zadanih tipova: " + currentDirectoryTotalSize + " bytes");
+        
+        // Budući da prelazimo na roditeljski direktorij ili drugi krak, resetiramo brojač.
+        // Napomena: Zadatak traži veličinu datoteka u direktoriju, ali NE i njegovih poddirektorija.
+        currentDirectoryTotalSize = 0; 
+        
+        return FileVisitResult.CONTINUE;
+    }
+
+    private String getExtension(String fileName) {
+        int lastDotIndex = fileName.lastIndexOf('.');
+        if (lastDotIndex > 0 && lastDotIndex < fileName.length() - 1) {
+            return fileName.substring(lastDotIndex + 1);
+        }
+        return ""; // Nema ekstenzije
+    }
+}
+
+public static void main(String[] args) throws IOException {
+    Path startPath = Paths.get("putanja/do/direktorija");
+    List<String> exts = Arrays.asList("txt", "pdf", "jpg");
+    
+    ListTypeAnalyzer analyzer = new ListTypeAnalyzer(exts);
+    Files.walkFileTree(startPath, analyzer);
+    
+    Map<String, Long> finalResults = analyzer.getSizesByExtension();
+    System.out.println("--- Ukupno po ekstenzijama ---");
+    finalResults.forEach((k, v) -> System.out.println(k + ": " + v + " bytes"));
+}

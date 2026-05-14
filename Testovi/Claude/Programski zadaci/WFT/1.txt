@@ -1,0 +1,162 @@
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+
+/**
+ * Analizira datotečno stablo i računa zbirne veličine datoteka po ekstenzijama.
+ *
+ * Nasljeđuje SimpleFileVisitor<Path> i koristi se zajedno s Files.walkFileTree.
+ * Nakon obilaska:
+ *   - getSizesByExtension() vraća mapu { ekstenzija -> ukupna veličina u bajtovima }
+ *   - Za svaki direktorij ispisuje zbirnu veličinu datoteka zadanih ekstenzija
+ *     koje se *neposredno* nalaze u njemu (bez poddirektorija), od dna prema vrhu.
+ */
+public class ListTypeAnalyzer extends SimpleFileVisitor<Path> {
+
+    // Ekstenzije za koje pratimo veličine (bez točke, lowercase)
+    private final List<String> extensions;
+
+    // Globalna mapa: ekstenzija -> ukupna veličina svih pronađenih datoteka
+    private final Map<String, Long> sizesByExtension;
+
+    /**
+     * Stog direktorija: svaki element čuva zbirnu veličinu datoteka
+     * neposredno u tom direktoriju (bez poddirektorija).
+     * Element: [Path direktorija, veličina]
+     */
+    private final Deque<long[]> directoryStack;
+
+    // Paralelni stog za čuvanje putanje direktorija (za ispis)
+    private final Deque<Path> directoryPaths;
+
+    /**
+     * @param extensions Lista ekstenzija koje treba pratiti (npr. ["java", "txt"]).
+     *                   Vrijednosti su bez točke i ne moraju biti lowercase —
+     *                   uspoređuju se case-insensitively.
+     */
+    public ListTypeAnalyzer(List<String> extensions) {
+        this.extensions = new ArrayList<>();
+        for (String ext : extensions) {
+            this.extensions.add(ext.toLowerCase());
+        }
+
+        // Inicijaliziramo mapu s ključevima za sve tražene ekstenzije, vrijednost 0
+        this.sizesByExtension = new LinkedHashMap<>();
+        for (String ext : this.extensions) {
+            sizesByExtension.put(ext, 0L);
+        }
+
+        this.directoryStack = new ArrayDeque<>();
+        this.directoryPaths = new ArrayDeque<>();
+    }
+
+    // -----------------------------------------------------------------------
+    // SimpleFileVisitor override metode
+    // -----------------------------------------------------------------------
+
+    /**
+     * Poziva se pri ulasku u direktorij — guramo novi akumulator na stog.
+     */
+    @Override
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+        directoryStack.push(new long[]{0L});
+        directoryPaths.push(dir);
+        return FileVisitResult.CONTINUE;
+    }
+
+    /**
+     * Poziva se za svaku datoteku — ažuriramo globalnu mapu i akumulator
+     * direktorija u kojem se datoteka nalazi.
+     */
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+        String ext = getExtension(file);
+        if (ext != null && sizesByExtension.containsKey(ext)) {
+            long size = attrs.size();
+
+            // Globalna mapa
+            sizesByExtension.merge(ext, size, Long::sum);
+
+            // Akumulator trenutnog (neposrednog) direktorija
+            if (!directoryStack.isEmpty()) {
+                directoryStack.peek()[0] += size;
+            }
+        }
+        return FileVisitResult.CONTINUE;
+    }
+
+    /**
+     * Poziva se pri izlasku iz direktorija — skidamo s vrha stoga i ispisujemo.
+     * Ispis ide od dna stabla prema vrhu jer postVisitDirectory dolazi
+     * prirodno u tom redoslijedu (leaf-direktoriji se zatvore prvi).
+     */
+    @Override
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+        if (exc != null) throw exc;
+
+        long[] current = directoryStack.pop();
+        directoryPaths.pop();
+
+        System.out.printf("Direktorij: %-60s | Veličina datoteka zadanih ekstenzija: %d bajta%n",
+                dir.toAbsolutePath(), current[0]);
+
+        return FileVisitResult.CONTINUE;
+    }
+
+    // -----------------------------------------------------------------------
+    // Javno sučelje
+    // -----------------------------------------------------------------------
+
+    /**
+     * Vraća mapu u kojoj su ključevi tražene ekstenzije, a vrijednosti
+     * zbirne veličine svih pronađenih datoteka s tom ekstenzijom.
+     *
+     * @return nepromjenjiva kopija interne mape
+     */
+    public Map<String, Long> getSizesByExtension() {
+        return Collections.unmodifiableMap(sizesByExtension);
+    }
+
+    // -----------------------------------------------------------------------
+    // Pomoćne metode
+    // -----------------------------------------------------------------------
+
+    /**
+     * Vraća ekstenziju datoteke (lowercase, bez točke) ili null ako je nema.
+     */
+    private String getExtension(Path file) {
+        String name = file.getFileName().toString();
+        int dot = name.lastIndexOf('.');
+        if (dot < 0 || dot == name.length() - 1) {
+            return null; // nema ekstenzije ili naziv završava točkom
+        }
+        return name.substring(dot + 1).toLowerCase();
+    }
+
+    // -----------------------------------------------------------------------
+    // Demonstracijska main metoda
+    // -----------------------------------------------------------------------
+
+    public static void main(String[] args) throws IOException {
+        // Zadajemo početni direktorij i listu ekstenzija
+        Path startDir = Paths.get(args.length > 0 ? args[0] : ".");
+        List<String> exts = args.length > 1
+                ? Arrays.asList(Arrays.copyOfRange(args, 1, args.length))
+                : Arrays.asList("java", "txt", "xml");
+
+        System.out.println("=".repeat(80));
+        System.out.println("Obilazak stabla: " + startDir.toAbsolutePath());
+        System.out.println("Ekstenzije: " + exts);
+        System.out.println("=".repeat(80));
+
+        ListTypeAnalyzer analyzer = new ListTypeAnalyzer(exts);
+        Files.walkFileTree(startDir, analyzer);
+
+        System.out.println("=".repeat(80));
+        System.out.println("Ukupne veličine po ekstenziji:");
+        analyzer.getSizesByExtension().forEach((ext, size) ->
+                System.out.printf("  .%-10s  %d bajta%n", ext, size));
+        System.out.println("=".repeat(80));
+    }
+}

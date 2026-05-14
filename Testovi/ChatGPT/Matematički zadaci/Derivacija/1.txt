@@ -1,0 +1,282 @@
+(a) Izvedite derivaciju funkcije po definiciji
+
+Data je funkcija
+
+f(x)=ln
+2
+x=(lnx)
+2
+.
+
+Po definiciji derivacije:
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+h
+f(x+h)−f(x)
+	​
+
+.
+
+Uvrstimo funkciju:
+
+f
+′
+(x)=lim
+h→0
+	​
+
+h
+(ln(x+h))
+2
+−(lnx)
+2
+	​
+
+
+Koristimo formulu razlike kvadrata:
+
+a
+2
+−b
+2
+=(a−b)(a+b),
+
+pa dobijamo
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+h
+(ln(x+h)−lnx)(ln(x+h)+lnx)
+	​
+
+.
+
+Zapišimo:
+
+ln(x+h)−lnx=ln(
+x
+x+h
+	​
+
+)=ln(1+
+x
+h
+	​
+
+).
+
+Dakle,
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+(
+h
+ln(1+
+x
+h
+	​
+
+)
+	​
+
+)(ln(x+h)+lnx).
+
+Uvedimo smjenu u=
+x
+h
+	​
+
+, tj. h=xu. Tada:
+
+h
+ln(1+
+x
+h
+	​
+
+)
+	​
+
+=
+xu
+ln(1+u)
+	​
+
+=
+x
+1
+	​
+
+⋅
+u
+ln(1+u)
+	​
+
+.
+
+Kako vrijedi
+
+u→0
+lim
+	​
+
+u
+ln(1+u)
+	​
+
+=1,
+
+i
+
+h→0
+lim
+	​
+
+(ln(x+h)+lnx)=2lnx,
+
+dobijamo
+
+f
+′
+(x)=
+x
+2lnx
+	​
+
+
+(b) Odredite f
+′
+(0)
+
+Data je funkcija
+
+f(x)=xtanx+(x
+2
++1)
+x
+.
+
+Prvo deriviramo članove.
+
+Za prvi član:
+
+(xtanx)
+′
+=tanx+xsec
+2
+x.
+
+Za drugi član koristimo logaritamsko deriviranje. Neka
+
+g(x)=(x
+2
++1)
+x
+.
+
+Tada
+
+lng(x)=xln(x
+2
++1).
+
+Deriviranjem:
+
+g(x)
+g
+′
+(x)
+	​
+
+=ln(x
+2
++1)+x
+x
+2
++1
+2x
+	​
+
+.
+
+Zato je
+
+g
+′
+(x)=(x
+2
++1)
+x
+(ln(x
+2
++1)+
+x
+2
++1
+2x
+2
+	​
+
+).
+
+Dakle,
+
+f
+′
+(x)=tanx+xsec
+2
+x+(x
+2
++1)
+x
+(ln(x
+2
++1)+
+x
+2
++1
+2x
+2
+	​
+
+).
+
+Sada uvrstimo x=0:
+
+tan0=0,0⋅sec
+2
+0=0,
+(0
+2
++1)
+0
+=1,
+ln(1)=0,
+1
+2⋅0
+2
+	​
+
+=0.
+
+Prema tome,
+
+f
+′
+(0)=0

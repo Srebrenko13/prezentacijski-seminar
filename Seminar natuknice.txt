@@ -1,0 +1,64 @@
+Modeli:
+
+ChatGPT
+Gemini
+Copilot
+Claude
+
+Tipovi zadataka:
+
+Tekstualni
+Vizualni (slika/video)
+Audio
+
+Metodologija:
+Definiraj zadatke za svaki tip zadataka, provedi ih 3-5 puta kako bi dobio neki average (vjerojatno ce bit samo 3).
+Provrti svaki zadatak odredeni broj puta na svakom modelu, zapisi i analiziraj rezultate
+Tekstualnih zadataka bi trebalo biti najvise jer su oni najkoristeniji i najvise mogu varirati
+Takoder ako stignem, trebalo bi provjeriti mogu li prevariti agenta da odgovara sa netocnim podacima unutar jednog razgovora.
+
+Svaki prompt izvodi se u zasebnom, privremenom/incognito razgovoru kako bi se osigurala neovisnost pojedinih promptova.
+
+Tekstualni zadaci:
+Barem 2-3 fact checking pitanje: 
+npr tko je pobjednik NBA sezone 2024/25
+2-3 pitanja za koje ne bi trebao imati odgovor (jer odgovor ne postoji): tko je pobjednik NBA sezone 2025/26
+Pitanja vezano uz matematicke probleme
+
+U kojoj je državi nastao Google?
+S kojim državama graniči Poljska?
+Postaje li kost jača nakon loma?
+Na kojim kontinentima žive slonovi?
+Koji je glavni grad Nizozemske?
+
+Pitanja koja ovise u aktualnim podacima:
+
+Koja je najmnogoljudnija zemlja na svijetu?
+Koliko je visok Mount Everest?
+U kojoj se državi održava finale lige prvaka?
+Tko je pobjednik NBA sezone 2024/25?
+Tko je pobjednik NBA sezone 2025/26?
+Koliko godina ima Luka Modrić?
+
+Matematički zadaci:
+
+Nalaze se u folderu u materijalima, preuzeti sa stranica kolegija Matematička analiza 1
+Iz njih također možemo zadavati zadatke vezane uz slikovne promptove.
+
+Programski zadaci:
+
+Kao programski zadaci agentu ce biti predani zadaci sa ispita iz kolegija Uvod u programiranje i Objektno orijentirano programiranje te ce se od agenta traziti rjesenje odredenog zadatka, osim samog ispisa koda, provjeravati ce se i kvaliteta generiranog koda.
+
+Vizualni zadaci:
+
+Dio zadataka biti će vezan uz zadatke s kolegija Matematičke analize 1, ali umjesto teksta zadataka, kao prompt će biti zadani kao screenshotovi zadataka iz PDF datoteke.
+
+Biti ce prikazan rukom pisan tekst, jedan ce biti postupak zadatka s meduispita iz Matematicke analize 1, a drugi ce biti tekst koji trazi od agenta da odgovori sa napisanom recenicom.
+
+Osim toga biti ce prikazane slike cvijeta, zivotinje i osobe te ce se od agenta traziti da kaze o cemu se radi te malo detaljnije opise tu temu.
+
+Audio zapisi:
+
+Kao audio zadaci agentu ce biti predani isjecci pjesama te ce se od agenta traziti da kaze o kojoj se pjesmi radi.
+
+Takoder biti ce mu predana 2 isjecka sa sjednice europskog parlamenta te ce se od njega traziti da sazme ono o cemu je u tom isjecku pricano.

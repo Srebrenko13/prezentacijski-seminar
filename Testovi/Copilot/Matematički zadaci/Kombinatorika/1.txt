@@ -1,0 +1,225 @@
+Kratak odgovor:
+
+(a) Broj načina =
+
+(
+15
+2
+)
+(
+22
+2
+)
+(
+20
+2
+)
+=
+105
+⋅
+231
+⋅
+190
+=
+4
+ 
+609
+ 
+950.
+(b) Broj načina =
+
+(
+57
+6
+)
+−
+[
+(
+42
+6
+)
++
+(
+35
+6
+)
++
+(
+37
+6
+)
+]
++
+[
+(
+20
+6
+)
++
+(
+22
+6
+)
++
+(
+15
+6
+)
+]
+.
+🧮 Objašnjenje
+(a) Iz svakog razreda po dva učenika
+Biramo 2 iz 15, 2 iz 22, 2 iz 20.
+Redoslijed nije bitan → koristimo kombinacije.
+
+𝑁
+=
+(
+15
+2
+)
+(
+22
+2
+)
+(
+20
+2
+)
+(
+15
+2
+)
+=
+105
+
+(
+22
+2
+)
+=
+231
+
+(
+20
+2
+)
+=
+190
+
+𝑁
+=
+105
+⋅
+231
+⋅
+190
+=
+4
+ 
+609
+ 
+950.
+(b) Delegacija od 6 učenika, ali barem jedan iz svakog razreda
+Ukupno učenika:
+
+15
++
+22
++
+20
+=
+57.
+Ukupan broj svih mogućih delegacija od 6 učenika:
+
+(
+57
+6
+)
+.
+Oduzimamo delegacije koje nemaju učenike iz nekog razreda:
+
+Bez 4.a → biramo 6 iz 22+20 = 42 → 
+(
+42
+6
+)
+
+Bez 4.b → biramo 6 iz 15+20 = 35 → 
+(
+35
+6
+)
+
+Bez 4.c → biramo 6 iz 15+22 = 37 → 
+(
+37
+6
+)
+
+Ali smo delegacije koje nemaju učenike iz dva razreda oduzeli dvaput, pa ih vraćamo:
+
+Samo iz 4.a → 
+(
+15
+6
+)
+
+Samo iz 4.b → 
+(
+22
+6
+)
+
+Samo iz 4.c → 
+(
+20
+6
+)
+
+Dakle:
+
+𝑁
+=
+(
+57
+6
+)
+−
+[
+(
+42
+6
+)
++
+(
+35
+6
+)
++
+(
+37
+6
+)
+]
++
+[
+(
+20
+6
+)
++
+(
+22
+6
+)
++
+(
+15
+6
+)
+]
+.
+Ako želiš, mogu izračunati i konačan broj (to je veliki broj pa ga nisam odmah pisao).
+Želiš li da izračunam numeričku vrijednost izraza iz (b)?
+👉 Izračunaj broj iz (b)

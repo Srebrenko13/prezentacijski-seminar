@@ -1,0 +1,90 @@
+You made a small mistake in the derivative of the inner fraction.
+
+The function is
+
+[
+f(x)=\arctan\left(\frac{3-x}{x-1}\right)
+]
+
+and you want the tangent at (x_0=2).
+
+First compute the point:
+
+[
+f(2)=\arctan\left(\frac{3-2}{2-1}\right)=\arctan(1)=\frac{\pi}{4}
+]
+
+Now differentiate.
+
+Using the chain rule:
+
+[
+f'(x)=\frac{1}{1+\left(\frac{3-x}{x-1}\right)^2}\cdot
+\left(\frac{3-x}{x-1}\right)'
+]
+
+The error in your work is here:
+
+[
+\left(\frac{3-x}{x-1}\right)'
+]
+
+You used ((x+1)^2), but the denominator should be ((x-1)^2).
+
+Using the quotient rule:
+
+[
+\left(\frac{3-x}{x-1}\right)'
+=============================
+
+\frac{(-1)(x-1)-(3-x)(1)}{(x-1)^2}
+]
+
+Simplify:
+
+[
+= \frac{-x+1-3+x}{(x-1)^2}
+==========================
+
+\frac{-2}{(x-1)^2}
+]
+
+At (x=2):
+
+[
+\left(\frac{3-x}{x-1}\right)'_{x=2}
+===================================
+
+\frac{-2}{1^2}=-2
+]
+
+Also,
+
+[
+\frac{1}{1+\left(\frac{3-2}{2-1}\right)^2}
+==========================================
+
+# \frac{1}{1+1}
+
+\frac12
+]
+
+Therefore,
+
+[
+f'(2)=\frac12(-2)=-1
+]
+
+So the tangent line is
+
+[
+y-\frac{\pi}{4}=-1(x-2)
+]
+
+or
+
+[
+\boxed{y=-x+2+\frac{\pi}{4}}
+]
+
+The slope is (\boxed{-1}), not (-\frac29).

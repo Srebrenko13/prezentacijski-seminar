@@ -1,0 +1,113 @@
+
+Rješenje
+a) Po 2 predstavnika iz svakog razreda
+Svaki razred biramo neovisno, pa množimo kombinacije:
+
+C
+(
+15
+,
+2
+)
+×
+C
+(
+22
+,
+2
+)
+×
+C
+(
+20
+,
+2
+)
+=
+105
+×
+231
+×
+190
+=
+4
+ 
+609
+ 
+350
+C(15,2)×C(22,2)×C(20,2)=105×231×190= 
+4 609 350
+​
+ 
+b) Barem jedan predstavnik iz svakog razreda
+Koristimo načelo uključivanja-isključivanja. Neka je:
+
+A = delegacije bez učenika iz 4.a (biramo svih 6 iz 4.b+4.c = 42 učenika)
+B = delegacije bez 4.b (biramo iz 4.a+4.c = 35 učenika)
+C = delegacije bez 4.c (biramo iz 4.a+4.b = 37 učenika)
+∣
+A
+∪
+B
+∪
+C
+∣
+=
+∣
+A
+∣
++
+∣
+B
+∣
++
+∣
+C
+∣
+−
+∣
+A
+∩
+B
+∣
+−
+∣
+A
+∩
+C
+∣
+−
+∣
+B
+∩
+C
+∣
++
+∣
+A
+∩
+B
+∩
+C
+∣
+∣A∪B∪C∣=∣A∣+∣B∣+∣C∣−∣A∩B∣−∣A∩C∣−∣B∩C∣+∣A∩B∩C∣
+Skup	Raspoloživi učenici	Vrijednost
+Ukupno C(57,6)	57	1 652 411 330
+|A| = C(42,6)	42 (bez 4.a)	5 245 786
+|C| = C(37,6)	37 (bez 4.c)	2 324 784
+|B| = C(35,6)	35 (bez 4.b)	1 623 160
+|A∩C| = C(22,6)	samo 4.b	74 613
+|A∩B| = C(20,6)	samo 4.c	38 760
+|B∩C| = C(15,6)	samo 4.a	5 005
+|A∩B∩C| = C(0,6)	nitko	0
+Rezultat = 1 652 411 330 − 5 245 786 − 2 324 784 − 1 623 160 + 74 613 + 38 760 + 5 005 =
+
+1
+ 
+643
+ 
+335
+ 
+978
+1 643 335 978
+​

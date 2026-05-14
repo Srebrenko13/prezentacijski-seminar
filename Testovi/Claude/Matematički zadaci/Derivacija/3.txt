@@ -1,0 +1,46 @@
+Zadatak 3
+(a) Derivacija po definiciji: f(x) = ln²x
+Po definiciji derivacije:
+f′(x)=lim⁡h→0f(x+h)−f(x)h=lim⁡h→0ln⁡2(x+h)−ln⁡2xhf'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} = \lim_{h \to 0} \frac{\ln^2(x+h) - \ln^2 x}{h}f′(x)=h→0lim​hf(x+h)−f(x)​=h→0lim​hln2(x+h)−ln2x​
+Koristimo razliku kvadrata: a2−b2=(a−b)(a+b)a^2 - b^2 = (a-b)(a+b)
+a2−b2=(a−b)(a+b):
+=lim⁡h→0[ln⁡(x+h)−ln⁡x][ln⁡(x+h)+ln⁡x]h= \lim_{h \to 0} \frac{[\ln(x+h) - \ln x][\ln(x+h) + \ln x]}{h}=h→0lim​h[ln(x+h)−lnx][ln(x+h)+lnx]​
+=lim⁡h→0ln⁡x+hx⋅ln⁡[(x+h)⋅x]h=lim⁡h→0ln⁡(1+hx)h⋅ln⁡[x(x+h)]= \lim_{h \to 0} \frac{\ln\frac{x+h}{x} \cdot \ln[(x+h) \cdot x]}{h} = \lim_{h \to 0} \frac{\ln\left(1 + \frac{h}{x}\right)}{h} \cdot \ln[x(x+h)]=h→0lim​hlnxx+h​⋅ln[(x+h)⋅x]​=h→0lim​hln(1+xh​)​⋅ln[x(x+h)]
+Supstitucija: neka je t=hxt = \frac{h}{x}
+t=xh​, pa kad h→0h \to 0
+h→0, t→0t \to 0
+t→0:
+lim⁡h→0ln⁡(1+hx)h=lim⁡t→0ln⁡(1+t)tx=1x⋅lim⁡t→0ln⁡(1+t)t=1x⋅1=1x\lim_{h \to 0} \frac{\ln\left(1+\frac{h}{x}\right)}{h} = \lim_{t \to 0} \frac{\ln(1+t)}{tx} = \frac{1}{x} \cdot \lim_{t\to 0}\frac{\ln(1+t)}{t} = \frac{1}{x} \cdot 1 = \frac{1}{x}h→0lim​hln(1+xh​)​=t→0lim​txln(1+t)​=x1​⋅t→0lim​tln(1+t)​=x1​⋅1=x1​
+Drugi faktor kad h→0h \to 0
+h→0:
+ln⁡[x(x+h)]→ln⁡(x⋅x)=ln⁡x2=2ln⁡x\ln[x(x+h)] \to \ln(x \cdot x) = \ln x^2 = 2\ln xln[x(x+h)]→ln(x⋅x)=lnx2=2lnx
+Dakle:
+f′(x)=1x⋅2ln⁡x=2ln⁡xx\boxed{f'(x) = \frac{1}{x} \cdot 2\ln x = \frac{2\ln x}{x}}f′(x)=x1​⋅2lnx=x2lnx​​
+
+(b) f'(0) za f(x) = x·tg x + (x²+1)ˣ
+Deriviranje zbroja:
+Prvi član: u(x)=x⋅tg xu(x) = x \cdot \text{tg}\, x
+u(x)=x⋅tgx — pravilo produkta:
+u′(x)=tg x+x⋅1cos⁡2xu'(x) = \text{tg}\, x + x \cdot \frac{1}{\cos^2 x}u′(x)=tgx+x⋅cos2x1​
+Drugi član: v(x)=(x2+1)xv(x) = (x^2+1)^x
+v(x)=(x2+1)x — logaritmiramo:
+ln⁡v=x⋅ln⁡(x2+1)\ln v = x \cdot \ln(x^2+1)lnv=x⋅ln(x2+1)
+v′v=ln⁡(x2+1)+x⋅2xx2+1\frac{v'}{v} = \ln(x^2+1) + x \cdot \frac{2x}{x^2+1}vv′​=ln(x2+1)+x⋅x2+12x​
+v′(x)=(x2+1)x[ln⁡(x2+1)+2x2x2+1]v'(x) = (x^2+1)^x \left[\ln(x^2+1) + \frac{2x^2}{x^2+1}\right]v′(x)=(x2+1)x[ln(x2+1)+x2+12x2​]
+Ukupna derivacija:
+f′(x)=tg x+xcos⁡2x+(x2+1)x[ln⁡(x2+1)+2x2x2+1]f'(x) = \text{tg}\, x + \frac{x}{\cos^2 x} + (x^2+1)^x\left[\ln(x^2+1) + \frac{2x^2}{x^2+1}\right]f′(x)=tgx+cos2xx​+(x2+1)x[ln(x2+1)+x2+12x2​]
+Uvrštavanje x = 0:
+
+tg 0=0\text{tg}\, 0 = 0
+tg0=0
+0cos⁡20=0\frac{0}{\cos^2 0} = 0
+cos200​=0
+(0+1)0=1(0+1)^0 = 1
+(0+1)0=1
+ln⁡(0+1)=0\ln(0+1) = 0
+ln(0+1)=0
+00+1=0\frac{0}{0+1} = 0
+0+10​=0
+
+f′(0)=0+0+1⋅[0+0]f'(0) = 0 + 0 + 1 \cdot [0 + 0]f′(0)=0+0+1⋅[0+0]
+f′(0)=0\boxed{f'(0) = 0}f′(0)=0​

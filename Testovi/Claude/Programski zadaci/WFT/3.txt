@@ -1,0 +1,150 @@
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+
+/**
+ * ListTypeAnalyzer nasljeđuje SimpleFileVisitor<Path> i analizira datoteke
+ * prema zadanim ekstenzijama. Nakon Files.walkFileTree:
+ *  - getSizesByExtension() vraća zbirne veličine po ekstenziji (cijelo stablo)
+ *  - Za svaki direktorij ispisuje zbirnu veličinu datoteka zadanih ekstenzija
+ *    (samo neposredne datoteke, ne poddirektoriji), od dna stabla prema vrhu.
+ */
+public class ListTypeAnalyzer extends SimpleFileVisitor<Path> {
+
+    private final List<String> extensions;
+
+    // Ukupne veličine po ekstenziji za cijelo stablo
+    private final Map<String, Long> sizesByExtension;
+
+    // Veličina datoteka zadanih ekstenzija po direktoriju (samo neposredne datoteke)
+    // Koristimo Deque kako bismo pratili trenutni direktorij na stogu
+    private final Deque<long[]> dirSizeStack;   // long[0] = zbirna veličina
+    private final Deque<Path>   dirPathStack;   // odgovarajući Path direktorija
+
+    // Redoslijed ispisa: direktoriji se dodaju LIFO → ispis od dna prema vrhu
+    private final Deque<String> outputLines;
+
+    public ListTypeAnalyzer(List<String> extensions) {
+        // Normaliziramo ekstenzije: lowercase, bez točke na početku
+        this.extensions = new ArrayList<>();
+        for (String ext : extensions) {
+            String normalized = ext.startsWith(".") ? ext.substring(1) : ext;
+            this.extensions.add(normalized.toLowerCase());
+        }
+
+        this.sizesByExtension = new LinkedHashMap<>();
+        for (String ext : this.extensions) {
+            sizesByExtension.put(ext, 0L);
+        }
+
+        this.dirSizeStack  = new ArrayDeque<>();
+        this.dirPathStack  = new ArrayDeque<>();
+        this.outputLines   = new ArrayDeque<>();
+    }
+
+    // -----------------------------------------------------------------------
+    // SimpleFileVisitor metode
+    // -----------------------------------------------------------------------
+
+    @Override
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+        // Ulazimo u novi direktorij – guramo novi brojač na stog
+        dirSizeStack.push(new long[]{0L});
+        dirPathStack.push(dir);
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+        String ext = getExtension(file);
+        long   size = attrs.size();
+
+        if (ext != null && sizesByExtension.containsKey(ext)) {
+            // Dodaj u globalni zbroj
+            sizesByExtension.merge(ext, size, Long::sum);
+
+            // Dodaj u zbroj trenutnog (neposrednog) direktorija
+            if (!dirSizeStack.isEmpty()) {
+                dirSizeStack.peek()[0] += size;
+            }
+        }
+
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult visitFileFailed(Path file, IOException exc) {
+        System.err.println("Ne mogu posjetiti datoteku: " + file + " – " + exc.getMessage());
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
+        if (!dirSizeStack.isEmpty()) {
+            long dirSize = dirSizeStack.pop()[0];
+            dirPathStack.pop();
+
+            // Spremi liniju za ispis (LIFO → na kraju će biti od dna prema vrhu)
+            outputLines.push(dir.toString() + " : " + dirSize + " bytes");
+        }
+        return FileVisitResult.CONTINUE;
+    }
+
+    // -----------------------------------------------------------------------
+    // Javne metode
+    // -----------------------------------------------------------------------
+
+    /**
+     * Vraća mapu ekstenzija → zbirna veličina svih pronađenih datoteka
+     * te ekstenzije u cijelom stablu od početnog direktorija.
+     * Poziva ispis direktorija od dna stabla prema vrhu.
+     */
+    public Map<String, Long> getSizesByExtension() {
+        // Ispiši direktorije od dna stabla prema vrhu (LIFO redoslijed)
+        for (String line : outputLines) {
+            System.out.println(line);
+        }
+        return Collections.unmodifiableMap(sizesByExtension);
+    }
+
+    // -----------------------------------------------------------------------
+    // Pomoćne metode
+    // -----------------------------------------------------------------------
+
+    /**
+     * Vraća ekstenziju datoteke malim slovima, ili null ako je nema.
+     */
+    private String getExtension(Path file) {
+        String name = file.getFileName().toString();
+        int dot = name.lastIndexOf('.');
+        if (dot < 0 || dot == name.length() - 1) {
+            return null; // nema ekstenzije
+        }
+        return name.substring(dot + 1).toLowerCase();
+    }
+
+    // -----------------------------------------------------------------------
+    // main – primjer upotrebe
+    // -----------------------------------------------------------------------
+
+    public static void main(String[] args) throws IOException {
+        if (args.length < 2) {
+            System.out.println("Upotreba: java ListTypeAnalyzer <direktorij> <ext1> [ext2 ...]");
+            System.out.println("Primjer:  java ListTypeAnalyzer /home/user/docs txt pdf java");
+            return;
+        }
+
+        Path startDir = Paths.get(args[0]);
+        List<String> exts = Arrays.asList(Arrays.copyOfRange(args, 1, args.length));
+
+        ListTypeAnalyzer analyzer = new ListTypeAnalyzer(exts);
+        Files.walkFileTree(startDir, analyzer);
+
+        System.out.println("\n=== Zbirne veličine po ekstenziji ===");
+        Map<String, Long> sizes = analyzer.getSizesByExtension();
+        sizes.forEach((ext, size) ->
+            System.out.printf("  .%-10s : %d bytes%n", ext, size)
+        );
+    }
+}

@@ -1,0 +1,146 @@
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+
+/**
+ * ListTypeAnalyzer nasljeđuje SimpleFileVisitor<Path> i prikuplja
+ * ukupne veličine datoteka po ekstenzijama te ispisuje veličinu
+ * svakog direktorija (samo neposrednih datoteka zadanih ekstenzija)
+ * od dna stabla prema vrhu.
+ */
+public class ListTypeAnalyzer extends SimpleFileVisitor<Path> {
+
+    // Ekstenzije za koje pratimo veličine (bez točke, lowercase)
+    private final List<String> extensions;
+
+    // Ukupna zbirna veličina po ekstenziji (za getSizesByExtension())
+    private final Map<String, Long> sizesByExtension;
+
+    // Stog direktorija: svaki element je mapa Path -> veličina neposrednih datoteka
+    // Koristimo Deque kao stog — guramo pri preEnterDirectory, skidamo pri postVisitDirectory
+    private final Deque<Map.Entry<Path, Long>> directoryStack;
+
+    /**
+     * @param extensions lista ekstenzija koje nas zanimaju (npr. ["txt", "java", "pdf"])
+     *                   Ekstenzije se uspoređuju case-insensitively, bez točke.
+     */
+    public ListTypeAnalyzer(List<String> extensions) {
+        this.extensions = new ArrayList<>();
+        for (String ext : extensions) {
+            // Normaliziramo: uklonimo vodeću točku (ako postoji) i pretvorimo u lowercase
+            String normalized = ext.startsWith(".") ? ext.substring(1) : ext;
+            this.extensions.add(normalized.toLowerCase());
+        }
+
+        // Inicijaliziramo mapu s 0 za svaku ekstenziju
+        this.sizesByExtension = new LinkedHashMap<>();
+        for (String ext : this.extensions) {
+            sizesByExtension.put(ext, 0L);
+        }
+
+        this.directoryStack = new ArrayDeque<>();
+    }
+
+    /**
+     * Vraća mapu u kojoj su ključevi tražene ekstenzije,
+     * a vrijednosti zbirne veličine svih pronađenih datoteka s tom ekstenzijom.
+     */
+    public Map<String, Long> getSizesByExtension() {
+        return Collections.unmodifiableMap(sizesByExtension);
+    }
+
+    // -------------------------------------------------------------------------
+    // SimpleFileVisitor callbacks
+    // -------------------------------------------------------------------------
+
+    @Override
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+        // Guramo novi zapis na stog: veličina neposrednih datoteka počinje od 0
+        directoryStack.push(new AbstractMap.SimpleEntry<>(dir, 0L));
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+        String ext = getExtension(file);
+
+        if (ext != null && sizesByExtension.containsKey(ext)) {
+            long size = attrs.size();
+
+            // 1. Dodajemo u globalnu mapu po ekstenziji
+            sizesByExtension.merge(ext, size, Long::sum);
+
+            // 2. Dodajemo u veličinu trenutnog (neposrednog) direktorija na vrhu stoga
+            if (!directoryStack.isEmpty()) {
+                Map.Entry<Path, Long> top = directoryStack.peek();
+                top.setValue(top.getValue() + size);
+            }
+        }
+
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult visitFileFailed(Path file, IOException exc) {
+        System.err.println("Nije moguće posjetiti datoteku: " + file + " (" + exc.getMessage() + ")");
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
+        if (exc != null) {
+            System.err.println("Greška pri izlasku iz direktorija: " + dir + " (" + exc.getMessage() + ")");
+        }
+
+        // Skidamo s vrha stoga i ispisujemo — time dobivamo ispis od dna prema vrhu
+        if (!directoryStack.isEmpty()) {
+            Map.Entry<Path, Long> entry = directoryStack.pop();
+            System.out.println("Direktorij: " + entry.getKey()
+                    + " | Veličina neposrednih datoteka zadanih ekstenzija: "
+                    + entry.getValue() + " B");
+        }
+
+        return FileVisitResult.CONTINUE;
+    }
+
+    // -------------------------------------------------------------------------
+    // Pomoćna metoda
+    // -------------------------------------------------------------------------
+
+    /**
+     * Vraća ekstenziju datoteke (lowercase, bez točke) ili null ako je nema.
+     */
+    private String getExtension(Path file) {
+        String name = file.getFileName().toString();
+        int dotIndex = name.lastIndexOf('.');
+        if (dotIndex > 0 && dotIndex < name.length() - 1) {
+            return name.substring(dotIndex + 1).toLowerCase();
+        }
+        return null;
+    }
+
+    // -------------------------------------------------------------------------
+    // Primjer korištenja (main metoda)
+    // -------------------------------------------------------------------------
+
+    public static void main(String[] args) throws IOException {
+        // Definirajte početni direktorij i tražene ekstenzije
+        Path startDir = Paths.get(args.length > 0 ? args[0] : ".");
+        List<String> exts = args.length > 1
+                ? Arrays.asList(Arrays.copyOfRange(args, 1, args.length))
+                : Arrays.asList("txt", "java", "class");
+
+        System.out.println("Analiza direktorija: " + startDir.toAbsolutePath());
+        System.out.println("Tražene ekstenzije: " + exts);
+        System.out.println("=".repeat(60));
+
+        ListTypeAnalyzer analyzer = new ListTypeAnalyzer(exts);
+        Files.walkFileTree(startDir, analyzer);
+
+        System.out.println("=".repeat(60));
+        System.out.println("Zbirne veličine po ekstenziji:");
+        analyzer.getSizesByExtension().forEach((ext, size) ->
+                System.out.printf("  %-10s : %d B%n", "." + ext, size));
+    }
+}

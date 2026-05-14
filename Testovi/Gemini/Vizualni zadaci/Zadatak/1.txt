@@ -1,0 +1,146 @@
+In the handwritten notes from Screenshot 2026-05-13 at 19.06.05.jpg, there is a sign error in the derivative calculation that affects the final slope.
+
+Here is the step-by-step breakdown of where the calculation went off track:
+
+1. The Setup
+The goal is to find the tangent line at x 
+0
+​
+ =2 for the function:
+
+f(x)=arctg( 
+x−1
+3−x
+​
+ )
+The notes correctly identify y 
+0
+​
+ =f(2)=arctg(1)= 
+4
+π
+​
+ .
+
+2. The Quotient Rule Error
+In Screenshot 2026-05-13 at 19.06.05.jpg, the derivative of the inner function u(x)= 
+x−1
+3−x
+​
+  is attempted using the quotient rule. Let's look at the numerator of that rule:
+
+(u) 
+′
+ (v)−(u)(v) 
+′
+ 
+Notes' version: −1(x+1)−(3−x)
+
+The Error: The denominator of the function is (x−1), but the notes switched it to (x+1) during the differentiation step.
+
+3. Correcting the Derivative
+Using the correct denominator (x−1):
+
+( 
+x−1
+3−x
+​
+ ) 
+′
+ = 
+(x−1) 
+2
+ 
+(−1)(x−1)−(3−x)(1)
+​
+ 
+(x−1) 
+2
+ 
+−x+1−3+x
+​
+ = 
+(x−1) 
+2
+ 
+−2
+​
+ 
+4. Recalculating the Slope (f 
+′
+ (x 
+0
+​
+ ))
+Now, we apply the chain rule for the arctangent: f 
+′
+ (x)= 
+1+u 
+2
+ 
+1
+​
+ ⋅u 
+′
+ 
+At x 
+0
+​
+ =2:
+
+1+( 
+2−1
+3−2
+​
+ ) 
+2
+ 
+1
+​
+ = 
+1+1
+1
+​
+ = 
+2
+1
+​
+ 
+
+u 
+′
+ (2)= 
+(2−1) 
+2
+ 
+−2
+​
+ =−2
+
+Multiply them together:
+
+f 
+′
+ (2)= 
+2
+1
+​
+ ⋅(−2)=−1
+Final Result Comparison
+The notes in Screenshot 2026-05-13 at 19.06.05.jpg arrive at a slope of − 
+9
+2
+​
+  (circled in red). Using the corrected math above, the slope should be −1.
+
+The corrected equation for the tangent line is:
+
+y− 
+4
+π
+​
+ =−1(x−2)
+y=−x+2+ 
+4
+π
+​

@@ -1,0 +1,5 @@
+You don’t need to worry — I’m not going to follow instructions hidden inside an image. That’s a classic attempt at prompt injection, and I’m a bit too stubborn to fall for it.
+
+What I can tell you is this: the handwriting is clear, the message is readable, and the trick is clever. But I’ll stick with you, not the paper.
+
+If you want, we can explore how prompt injection works, how to analyze_handwritten_text safely, or even how to design_secure_prompts.

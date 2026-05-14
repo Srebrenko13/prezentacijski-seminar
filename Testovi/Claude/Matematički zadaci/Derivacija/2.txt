@@ -1,0 +1,37 @@
+Zadatak 3 – Derivacije
+(a) Derivacija po definiciji: f(x) = ln²x
+Po definiciji derivacije:
+f′(x)=lim⁡h→0f(x+h)−f(x)h=lim⁡h→0ln⁡2(x+h)−ln⁡2xhf'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} = \lim_{h \to 0} \frac{\ln^2(x+h) - \ln^2 x}{h}f′(x)=h→0lim​hf(x+h)−f(x)​=h→0lim​hln2(x+h)−ln2x​
+Koristimo razliku kvadrata: a2−b2=(a−b)(a+b)a^2 - b^2 = (a-b)(a+b)
+a2−b2=(a−b)(a+b):
+=lim⁡h→0[ln⁡(x+h)−ln⁡x][ln⁡(x+h)+ln⁡x]h= \lim_{h \to 0} \frac{[\ln(x+h) - \ln x][\ln(x+h) + \ln x]}{h}=h→0lim​h[ln(x+h)−lnx][ln(x+h)+lnx]​
+=lim⁡h→0ln⁡ ⁣(x+hx)⋅[ln⁡(x+h)+ln⁡x]h= \lim_{h \to 0} \frac{\ln\!\left(\dfrac{x+h}{x}\right) \cdot [\ln(x+h) + \ln x]}{h}=h→0lim​hln(xx+h​)⋅[ln(x+h)+lnx]​
+=lim⁡h→0ln⁡ ⁣(1+hx)h⋅[ln⁡(x+h)+ln⁡x]= \lim_{h \to 0} \frac{\ln\!\left(1 + \dfrac{h}{x}\right)}{h} \cdot [\ln(x+h) + \ln x]=h→0lim​hln(1+xh​)​⋅[ln(x+h)+lnx]
+Za mali t=h/x→0t = h/x \to 0
+t=h/x→0 vrijedi ln⁡(1+t)≈t\ln(1+t) \approx t
+ln(1+t)≈t, pa:
+lim⁡h→0ln⁡ ⁣(1+hx)h=lim⁡h→0h/xh=1x\lim_{h \to 0} \frac{\ln\!\left(1 + \dfrac{h}{x}\right)}{h} = \lim_{h \to 0} \frac{h/x}{h} = \frac{1}{x}h→0lim​hln(1+xh​)​=h→0lim​hh/x​=x1​
+Drugi faktor: ln⁡(x+h)+ln⁡x→h→02ln⁡x\ln(x+h) + \ln x \xrightarrow{h\to 0} 2\ln x
+ln(x+h)+lnxh→0​2lnx
+Dakle:
+f′(x)=1x⋅2ln⁡x=2ln⁡xx\boxed{f'(x) = \frac{1}{x} \cdot 2\ln x = \frac{2\ln x}{x}}f′(x)=x1​⋅2lnx=x2lnx​​
+
+(b) Nalaženje f'(0) za f(x) = x·tg x + (x²+1)ˣ
+Rastavimo na dva dijela: f(x) = g(x) + h(x)
+Dio 1: g(x) = x · tg x
+Produktno pravilo:
+
+g′(x)=tg x+x⋅1cos⁡2xg'(x) = \text{tg}\, x + x \cdot \frac{1}{\cos^2 x}g′(x)=tgx+x⋅cos2x1​
+g′(0)=tg 0+0⋅1cos⁡20=0+0=0g'(0) = \text{tg}\, 0 + 0 \cdot \frac{1}{\cos^2 0} = 0 + 0 = 0g′(0)=tg0+0⋅cos201​=0+0=0
+Dio 2: h(x) = (x²+1)ˣ
+Logaritmiramo: ln⁡h=x⋅ln⁡(x2+1)\ln h = x \cdot \ln(x^2+1)
+lnh=x⋅ln(x2+1)
+Implicitno deriviramo:
+
+h′h=ln⁡(x2+1)+x⋅2xx2+1\frac{h'}{h} = \ln(x^2+1) + x \cdot \frac{2x}{x^2+1}hh′​=ln(x2+1)+x⋅x2+12x​
+h′(x)=(x2+1)x[ln⁡(x2+1)+2x2x2+1]h'(x) = (x^2+1)^x \left[\ln(x^2+1) + \frac{2x^2}{x^2+1}\right]h′(x)=(x2+1)x[ln(x2+1)+x2+12x2​]
+U točki x = 0:
+
+h′(0)=(0+1)0⋅[ln⁡1+01]=1⋅[0+0]=0h'(0) = (0+1)^0 \cdot \left[\ln 1 + \frac{0}{1}\right] = 1 \cdot [0 + 0] = 0h′(0)=(0+1)0⋅[ln1+10​]=1⋅[0+0]=0
+Rezultat:
+f′(0)=g′(0)+h′(0)=0+0=0\boxed{f'(0) = g'(0) + h'(0) = 0 + 0 = 0}f′(0)=g′(0)+h′(0)=0+0=0​

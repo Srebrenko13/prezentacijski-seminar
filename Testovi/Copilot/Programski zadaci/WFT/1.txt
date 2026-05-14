@@ -1,0 +1,78 @@
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+
+public class ListTypeAnalyzer extends SimpleFileVisitor<Path> {
+
+    private final Set<String> extensions;
+    private final Map<String, Long> sizesByExtension = new HashMap<>();
+
+    // veličina trenutnog direktorija (samo datoteke u njemu)
+    private final Map<Path, Long> dirSizes = new HashMap<>();
+
+    public ListTypeAnalyzer(List<String> extensions) {
+        this.extensions = new HashSet<>();
+        for (String ext : extensions) {
+            this.extensions.add(ext.toLowerCase());
+            sizesByExtension.put(ext.toLowerCase(), 0L);
+        }
+    }
+
+    @Override
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+        dirSizes.put(dir, 0L); // inicijalizacija veličine direktorija
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+        if (!attrs.isRegularFile()) return FileVisitResult.CONTINUE;
+
+        String fileName = file.getFileName().toString().toLowerCase();
+        long size = attrs.size();
+
+        // 1) provjera ekstenzije
+        for (String ext : extensions) {
+            if (fileName.endsWith("." + ext)) {
+                sizesByExtension.merge(ext, size, Long::sum);
+                break;
+            }
+        }
+
+        // 2) dodavanje veličine trenutnom direktoriju
+        Path parent = file.getParent();
+        dirSizes.merge(parent, size, Long::sum);
+
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
+        // ispis veličine direktorija nakon obrade svih poddirektorija
+        long size = dirSizes.getOrDefault(dir, 0L);
+        System.out.println(dir.toAbsolutePath() + " -> " + size + " bytes");
+        return FileVisitResult.CONTINUE;
+    }
+
+    public Map<String, Long> getSizesByExtension() {
+        return sizesByExtension;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        List<String> ekstenzije = Arrays.asList("txt", "java", "md");
+
+        ListTypeAnalyzer analyzer = new ListTypeAnalyzer(ekstenzije);
+
+        Path start = Paths.get("C:/example");
+
+        Files.walkFileTree(start, analyzer);
+
+        System.out.println("Ukupne veličine po ekstenziji:");
+        analyzer.getSizesByExtension().forEach((ext, size) ->
+                System.out.println(ext + " -> " + size + " bytes")
+        );
+    }
+}

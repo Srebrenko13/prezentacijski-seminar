@@ -1,0 +1,257 @@
+Treba izračunati
+
+∫
+x
+3
+−1
+2x
+	​
+
+dx
+
+Faktorišimo imenilac:
+
+x
+3
+−1=(x−1)(x
+2
++x+1).
+
+Radimo parcijalne razlomke:
+
+x
+3
+−1
+2x
+	​
+
+=
+x−1
+A
+	​
+
++
+x
+2
++x+1
+Bx+C
+	​
+
+.
+
+Množenjem sa x
+3
+−1:
+
+2x=A(x
+2
++x+1)+(Bx+C)(x−1).
+
+Razvijanjem:
+
+2x=(A+B)x
+2
++(A−B+C)x+(A−C).
+
+Poređenjem koeficijenata dobijamo sistem:
+
+⎩
+⎨
+⎧
+	​
+
+A+B=0,
+A−B+C=2,
+A−C=0.
+	​
+
+
+Odakle:
+
+A=
+3
+2
+	​
+
+,B=−
+3
+2
+	​
+
+,C=
+3
+2
+	​
+
+.
+
+Dakle,
+
+x
+3
+−1
+2x
+	​
+
+=
+3(x−1)
+2
+	​
+
++
+3(x
+2
++x+1)
+−2x+2
+	​
+
+.
+
+Integral postaje
+
+∫
+x
+3
+−1
+2x
+	​
+
+dx=
+3
+2
+	​
+
+∫
+x−1
+dx
+	​
+
++
+3
+1
+	​
+
+∫
+x
+2
++x+1
+−2x+2
+	​
+
+dx.
+
+Pišemo
+
+−2x+2=−(2x+1)+3.
+
+Zato:
+
+∫
+x
+2
++x+1
+−2x+2
+	​
+
+dx=−∫
+x
+2
++x+1
+2x+1
+	​
+
+dx+3∫
+x
+2
++x+1
+dx
+	​
+
+.
+
+Prvi integral daje logaritam:
+
+−ln(x
+2
++x+1).
+
+Za drugi dovršimo kvadrat:
+
+x
+2
++x+1=(x+
+2
+1
+	​
+
+)
+2
++
+4
+3
+	​
+
+.
+
+Pa je
+
+∫
+x
+2
++x+1
+dx
+	​
+
+=
+3
+	​
+
+2
+	​
+
+arctan
+3
+	​
+
+2x+1
+	​
+
+.
+
+Sve zajedno:
+
+∫
+x
+3
+−1
+2x
+	​
+
+dx=
+3
+2
+	​
+
+ln∣x−1∣−
+3
+1
+	​
+
+ln(x
+2
++x+1)+
+3
+	​
+
+2
+	​
+
+arctan
+3
+	​
+
+2x+1
+	​
+
++C
+	​

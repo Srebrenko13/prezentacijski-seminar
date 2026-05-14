@@ -1,0 +1,25 @@
+Provjera rješenja
+Zadatak je pronaći jednadžbu tangente na funkciju f(x) = arctg((3-x)/(x-1)) u točki x₀ = 2.
+
+1. Vrijednost funkcije u x₀ = 2
+y0=arctan⁡ ⁣(3−22−1)=arctan⁡(1)=π4y_0 = \arctan\!\left(\frac{3-2}{2-1}\right) = \arctan(1) = \frac{\pi}{4}y0​=arctan(2−13−2​)=arctan(1)=4π​
+✅ Točno.
+
+2. Derivacija f'(x)
+f′(x)=11+(3−xx−1)2⋅(3−xx−1)′f'(x) = \frac{1}{1+\left(\frac{3-x}{x-1}\right)^2} \cdot \left(\frac{3-x}{x-1}\right)'f′(x)=1+(x−13−x​)21​⋅(x−13−x​)′
+Derivacija unutarnje funkcije (kvocijentno pravilo):
+(3−xx−1)′=−1⋅(x−1)−(3−x)⋅1(x−1)2=−x+1−3+x(x−1)2=−2(x−1)2\left(\frac{3-x}{x-1}\right)' = \frac{-1\cdot(x-1) - (3-x)\cdot 1}{(x-1)^2} = \frac{-x+1-3+x}{(x-1)^2} = \frac{-2}{(x-1)^2}(x−13−x​)′=(x−1)2−1⋅(x−1)−(3−x)⋅1​=(x−1)2−x+1−3+x​=(x−1)2−2​
+⚠️ Ovdje je greška! Brojnik je −2, a ne −1·(x+1)−1 kako piše u bilježnici. U bilježnici stoji −1(x+1)−(3−x) što zapravo daje −x−1−3+x = −4, no u sljedećem koraku autor uzima −4/9 — što je ispravno, samo je međukorak pogrešno zapisan.
+
+3. f'(x₀) pri x₀ = 2
+f′(2)=11+(11)2⋅−2(2−1)2=12⋅−21=−1f'(2) = \frac{1}{1+\left(\frac{1}{1}\right)^2} \cdot \frac{-2}{(2-1)^2} = \frac{1}{2} \cdot \frac{-2}{1} = -1f′(2)=1+(11​)21​⋅(2−1)2−2​=21​⋅1−2​=−1
+⚠️ Ovdje je greška! Autor dobiva 12⋅−49=−29\frac{1}{2} \cdot \frac{-4}{9} = -\frac{2}{9}
+21​⋅9−4​=−92​, ali to ne odgovara supstituciji x = 2.
+Provjerimo: pri x = 2, nazivnik je (x−1)2=1(x-1)^2 = 1
+(x−1)2=1, a brojnik numeratora je −2-2
+−2. Dakle $f'(2) = \frac{1}{2} \cdot (-2) = -1$, ne −29-\frac{2}{9}
+−92​.
+
+4. Jednadžba tangente
+S ispravnim nagibom m = −1:
+y=−(x−2)+π4=−x+2+π4\boxed{y = -(x-2) + \frac{\pi}{4} = -x + 2 + \frac{\pi}{4}}y=−(x−2)+4π​=−x+2+4π​​

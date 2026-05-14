@@ -1,0 +1,40 @@
+I can see this is a calculus problem finding the tangent line to the curve f(x)=arctan⁡ ⁣(3−xx−1)f(x) = \arctan\!\left(\dfrac{3-x}{x-1}\right)
+f(x)=arctan(x−13−x​) at x0=2x_0 = 2
+x0​=2.
+Let me verify each step:
+
+Step 1: Find y0=f(x0)y_0 = f(x_0)
+y0​=f(x0​)
+f(2)=arctan⁡ ⁣(3−22−1)=arctan⁡ ⁣(11)=arctan⁡(1)=π4f(2) = \arctan\!\left(\frac{3-2}{2-1}\right) = \arctan\!\left(\frac{1}{1}\right) = \arctan(1) = \frac{\pi}{4}f(2)=arctan(2−13−2​)=arctan(11​)=arctan(1)=4π​
+✅ Correct.
+
+Step 2: Find f′(x)f'(x)
+f′(x)
+Using the chain rule, where (arctan⁡u)′=u′1+u2(\arctan u)' = \dfrac{u'}{1+u^2}
+(arctanu)′=1+u2u′​ and u=3−xx−1u = \dfrac{3-x}{x-1}
+u=x−13−x​:
+f′(x)=11+(3−xx−1)2⋅(3−xx−1)′f'(x) = \frac{1}{1+\left(\frac{3-x}{x-1}\right)^2} \cdot \left(\frac{3-x}{x-1}\right)'f′(x)=1+(x−13−x​)21​⋅(x−13−x​)′
+The derivative of 3−xx−1\dfrac{3-x}{x-1}
+x−13−x​ via the quotient rule:
+(3−xx−1)′=−1⋅(x−1)−(3−x)⋅1(x−1)2=−x+1−3+x(x−1)2=−2(x−1)2\left(\frac{3-x}{x-1}\right)' = \frac{-1\cdot(x-1) - (3-x)\cdot 1}{(x-1)^2} = \frac{-x+1-3+x}{(x-1)^2} = \frac{-2}{(x-1)^2}(x−13−x​)′=(x−1)2−1⋅(x−1)−(3−x)⋅1​=(x−1)2−x+1−3+x​=(x−1)2−2​
+✅ The numerator simplifies to −2-2
+−2, not −4-4
+−4 as written in one intermediate step — but read on.
+
+Step 3: Evaluate f′(2)f'(2)
+f′(2)
+f′(2)=11+(11)2⋅−2(2−1)2=12⋅−21=−1f'(2) = \frac{1}{1+\left(\frac{1}{1}\right)^2} \cdot \frac{-2}{(2-1)^2} = \frac{1}{2} \cdot \frac{-2}{1} = -1f′(2)=1+(11​)21​⋅(2−1)2−2​=21​⋅1−2​=−1
+⚠️ There's an error in the solution. The numerator of the quotient rule gives −2-2
+−2, not −4-4
+−4. The written work shows −49-\frac{4}{9}
+−94​, which is incorrect. The correct value is:
+f′(2)=12⋅(−2)=−1f'(2) = \frac{1}{2} \cdot (-2) = -1f′(2)=21​⋅(−2)=−1
+
+Step 4: Tangent line equation
+y−y0=f′(x0)(x−x0)y - y_0 = f'(x_0)(x - x_0)y−y0​=f′(x0​)(x−x0​)
+Correct answer:
+y=−1⋅(x−2)+π4=−x+2+π4\boxed{y = -1\cdot(x-2) + \frac{\pi}{4} = -x + 2 + \frac{\pi}{4}}y=−1⋅(x−2)+4π​=−x+2+4π​​
+The solution in the image arrives at −29-\dfrac{2}{9}
+−92​ for the slope, which is incorrect due to an error in computing the numerator of the quotient rule (writing −4-4
+−4 instead of −2-2
+−2).

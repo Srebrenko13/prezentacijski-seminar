@@ -1,0 +1,43 @@
+Riješimo oba dijela zadatka.
+Podaci
+RazredBroj učenika4.a154.b224.c20
+
+(a) Iz svakog razreda po 2 predstavnika
+Biramo točno 2 iz svakog razreda — to su neovisni izbori koje množimo:
+(152)⋅(222)⋅(202)=105⋅231⋅190=4 609 350\binom{15}{2} \cdot \binom{22}{2} \cdot \binom{20}{2} = 105 \cdot 231 \cdot 190 = \mathbf{4\,609\,350}(215​)⋅(222​)⋅(220​)=105⋅231⋅190=4609350
+
+(b) Barem po jedan predstavnik iz svakog razreda
+Ukupno biramo 6 učenika iz 57, uz uvjet da nijedan razred nije izostavljen.
+Koristimo komplement (princip uključivanja-isključivanja):
+
+Broj povoljnih = Ukupno − (barem jedan razred bez predstavnika)
+
+Neka je:
+
+AA
+A = delegacije bez ijednog učenika iz 4.a
+BB
+B = delegacije bez ijednog učenika iz 4.b
+CC
+C = delegacije bez ijednog učenika iz 4.c
+
+∣A∣=(426),∣B∣=(356),∣C∣=(376)|A| = \binom{42}{6},\quad |B| = \binom{35}{6},\quad |C| = \binom{37}{6}∣A∣=(642​),∣B∣=(635​),∣C∣=(637​)
+∣A∩B∣=(206),∣A∩C∣=(226),∣B∩C∣=(156)|A \cap B| = \binom{20}{6},\quad |A \cap C| = \binom{22}{6},\quad |B \cap C| = \binom{15}{6}∣A∩B∣=(620​),∣A∩C∣=(622​),∣B∩C∣=(615​)
+∣A∩B∩C∣=0(ne mozˇe se uzeti 6 iz 0 ucˇenika)|A \cap B \cap C| = 0 \quad \text{(ne može se uzeti 6 iz 0 učenika)}∣A∩B∩C∣=0(ne mozˇe se uzeti 6 iz 0 ucˇenika)
+Po principu uključivanja-isključivanja:
+∣A∪B∪C∣=(426)−(356)−(376)+(206)+(226)+(156)|A \cup B \cup C| = \binom{42}{6} - \binom{35}{6} - \binom{37}{6} + \binom{20}{6} + \binom{22}{6} + \binom{15}{6}∣A∪B∪C∣=(642​)−(635​)−(637​)+(620​)+(622​)+(615​)
+=5 245 786−1 623 160−2 324 784+38 760+74 613+5 005=1 416 220= 5\,245\,786 - 1\,623\,160 - 2\,324\,784 + 38\,760 + 74\,613 + 5\,005 = 1\,416\,220=5245786−1623160−2324784+38760+74613+5005=1416220
+Dakle, broj povoljnih delegacija:
+(576)−∣A∪B∪C∣=4 582 116−1 416 220=3 165 896\binom{57}{6} - |A \cup B \cup C| = 4\,582\,116 - 1\,416\,220 = \mathbf{3\,165\,896}(657​)−∣A∪B∪C∣=4582116−1416220=3165896
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widget
+Sažetak rješenja
+(a) (152)⋅(222)⋅(202)=105⋅231⋅190=4 609 350\binom{15}{2} \cdot \binom{22}{2} \cdot \binom{20}{2} = 105 \cdot 231 \cdot 190 = \textbf{4\,609\,350}
+(215​)⋅(222​)⋅(220​)=105⋅231⋅190=4609350
+(b) (576)−∣A∪B∪C∣=4 582 116−1 416 220=3 165 896\binom{57}{6} - |A \cup B \cup C| = 4\,582\,116 - 1\,416\,220 = \textbf{3\,165\,896}
+(657​)−∣A∪B∪C∣=4582116−1416220=3165896

@@ -1,0 +1,292 @@
+Treba izračunati integral
+
+∫
+x
+3
+−1
+2x
+	​
+
+dx
+
+Faktorišimo imenilac:
+
+x
+3
+−1=(x−1)(x
+2
++x+1).
+
+Radimo parcijalne razlomke:
+
+x
+3
+−1
+2x
+	​
+
+=
+x−1
+A
+	​
+
++
+x
+2
++x+1
+Bx+C
+	​
+
+.
+
+Množenjem sa (x
+3
+−1) dobijamo:
+
+2x=A(x
+2
++x+1)+(Bx+C)(x−1).
+
+Razvijanjem:
+
+2x=(A+B)x
+2
++(A−B+C)x+(A−C).
+
+Poređenjem koeficijenata:
+
+⎩
+⎨
+⎧
+	​
+
+A+B=0,
+A−B+C=2,
+A−C=0.
+	​
+
+
+Rešenje sistema je:
+
+A=
+3
+2
+	​
+
+,B=−
+3
+2
+	​
+
+,C=
+3
+2
+	​
+
+.
+
+Dakle,
+
+x
+3
+−1
+2x
+	​
+
+=
+3(x−1)
+2
+	​
+
++
+x
+2
++x+1
+−
+3
+2
+	​
+
+x+
+3
+2
+	​
+
+	​
+
+.
+
+Integral postaje
+
+∫
+x
+3
+−1
+2x
+	​
+
+dx=
+3
+2
+	​
+
+∫
+x−1
+dx
+	​
+
++
+3
+2
+	​
+
+∫
+x
+2
++x+1
+−x+1
+	​
+
+dx.
+
+Za drugi integral napišemo
+
+−x+1=−
+2
+1
+	​
+
+(2x+1)+
+2
+3
+	​
+
+.
+
+Zato:
+
+3
+2
+	​
+
+∫
+x
+2
++x+1
+−x+1
+	​
+
+dx=−
+3
+1
+	​
+
+∫
+x
+2
++x+1
+2x+1
+	​
+
+dx+∫
+x
+2
++x+1
+dx
+	​
+
+.
+
+Sada:
+
+∫
+x
+2
++x+1
+2x+1
+	​
+
+dx=ln(x
+2
++x+1),
+
+a
+
+x
+2
++x+1=(x+
+2
+1
+	​
+
+)
+2
++
+4
+3
+	​
+
+,
+
+pa je
+
+∫
+x
+2
++x+1
+dx
+	​
+
+=
+3
+	​
+
+2
+	​
+
+arctan(
+3
+	​
+
+2x+1
+	​
+
+).
+
+Konačno:
+
+∫
+x
+3
+−1
+2x
+	​
+
+dx=
+3
+2
+	​
+
+ln∣x−1∣−
+3
+1
+	​
+
+ln(x
+2
++x+1)+
+3
+	​
+
+2
+	​
+
+arctan(
+3
+	​
+
+2x+1
+	​
+
+)+C
+	​

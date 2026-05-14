@@ -1,0 +1,304 @@
+(a) Izvedite derivaciju funkcije po definiciji
+
+Data je funkcija
+
+f(x)=ln
+2
+x=(lnx)
+2
+.
+
+Po definiciji derivacije:
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+h
+f(x+h)−f(x)
+	​
+
+.
+
+Uvrstimo funkciju:
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+h
+(ln(x+h))
+2
+−(lnx)
+2
+	​
+
+.
+
+Primijenimo formulu razlike kvadrata:
+
+a
+2
+−b
+2
+=(a−b)(a+b),
+
+pa dobijemo
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+h
+(ln(x+h)−lnx)(ln(x+h)+lnx)
+	​
+
+.
+
+Koristimo
+
+ln(x+h)−lnx=ln(
+x
+x+h
+	​
+
+)=ln(1+
+x
+h
+	​
+
+).
+
+Dakle,
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+(
+h
+ln(1+
+x
+h
+	​
+
+)
+	​
+
+)(ln(x+h)+lnx).
+
+Preuredimo prvi faktor:
+
+h
+ln(1+
+x
+h
+	​
+
+)
+	​
+
+=
+x
+1
+	​
+
+⋅
+x
+h
+	​
+
+ln(1+
+x
+h
+	​
+
+)
+	​
+
+.
+
+Zato je
+
+f
+′
+(x)=
+h→0
+lim
+	​
+
+x
+1
+	​
+
+⋅
+x
+h
+	​
+
+ln(1+
+x
+h
+	​
+
+)
+	​
+
+⋅(ln(x+h)+lnx).
+
+Koristimo poznati limes
+
+u→0
+lim
+	​
+
+u
+ln(1+u)
+	​
+
+=1.
+
+Tada:
+
+f
+′
+(x)=
+x
+1
+	​
+
+⋅1⋅(lnx+lnx).
+
+Dobijamo
+
+f
+′
+(x)=
+x
+2lnx
+	​
+
+.
+
+f
+′
+(x)=
+x
+2lnx
+	​
+
+
+(b) Odredite f
+′
+(0)
+
+Data je funkcija
+
+f(x)=xtanx+(x
+2
++1)
+x
+.
+
+Tražimo
+
+f
+′
+(0).
+
+Deriviramo prvi dio:
+
+(xtanx)
+′
+=tanx+xsec
+2
+x.
+
+Za x=0:
+
+tan0=0,0⋅sec
+2
+0=0,
+
+pa doprinos prvog dijela iznosi 0.
+
+Sada drugi dio:
+
+g(x)=(x
+2
++1)
+x
+.
+
+Logaritmiranjem:
+
+lng(x)=xln(x
+2
++1).
+
+Deriviramo:
+
+g(x)
+g
+′
+(x)
+	​
+
+=ln(x
+2
++1)+x⋅
+x
+2
++1
+2x
+	​
+
+.
+
+Dakle,
+
+g
+′
+(x)=(x
+2
++1)
+x
+(ln(x
+2
++1)+
+x
+2
++1
+2x
+2
+	​
+
+).
+
+Za x=0:
+
+g
+′
+(0)=1⋅(0+0)=0.
+
+Zato je
+
+f
+′
+(0)=0+0=0.
+
+f
+′
+(0)=0

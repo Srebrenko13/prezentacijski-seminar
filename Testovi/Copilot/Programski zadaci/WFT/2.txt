@@ -1,0 +1,72 @@
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+
+public class ListTypeAnalyzer extends SimpleFileVisitor<Path> {
+
+    private final Set<String> extensions;
+    private final Map<String, Long> globalSizes = new HashMap<>();
+    private final Deque<Long> dirStack = new ArrayDeque<>();
+
+    public ListTypeAnalyzer(Collection<String> extensions) {
+        this.extensions = new HashSet<>();
+        for (String ext : extensions) {
+            this.extensions.add(ext.toLowerCase());
+            globalSizes.put(ext.toLowerCase(), 0L);
+        }
+    }
+
+    public Map<String, Long> getSizesByExtension() {
+        return globalSizes;
+    }
+
+    @Override
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+        dirStack.push(0L);
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+        String fileName = file.getFileName().toString();
+        String ext = extractExtension(fileName);
+
+        if (ext != null && extensions.contains(ext)) {
+            long size = attrs.size();
+
+            globalSizes.merge(ext, size, Long::sum);
+
+            long updatedDirSize = dirStack.pop() + size;
+            dirStack.push(updatedDirSize);
+        }
+
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
+        long dirSize = dirStack.pop();
+        System.out.println(dir + " -> " + dirSize + " bytes");
+
+        if (!dirStack.isEmpty()) {
+            long parentSize = dirStack.pop() + dirSize;
+            dirStack.push(parentSize);
+        }
+
+        return FileVisitResult.CONTINUE;
+    }
+
+    private String extractExtension(String fileName) {
+        int idx = fileName.lastIndexOf('.');
+        if (idx == -1 || idx == fileName.length() - 1) return null;
+        return fileName.substring(idx + 1).toLowerCase();
+    }
+}
+
+ListTypeAnalyzer analyzer = new ListTypeAnalyzer(List.of("txt", "jpg", "pdf"));
+Files.walkFileTree(Paths.get("/path/to/start"), analyzer);
+
+Map<String, Long> result = analyzer.getSizesByExtension();
+System.out.println(result);
+

@@ -1,0 +1,92 @@
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ListTypeAnalyzer extends SimpleFileVisitor<Path> {
+
+    private final List<String> extensions;
+
+    // ukupne veličine po ekstenzijama
+    private final Map<String, Long> sizesByExtension = new HashMap<>();
+
+    // veličina datoteka po direktoriju (samo direktne datoteke)
+    private final Map<Path, Long> directorySizes = new HashMap<>();
+
+    public ListTypeAnalyzer(List<String> extensions) {
+        this.extensions = extensions;
+
+        for (String ext : extensions) {
+            sizesByExtension.put(ext, 0L);
+        }
+    }
+
+    public Map<String, Long> getSizesByExtension() {
+        return sizesByExtension;
+    }
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+            throws IOException {
+
+        String fileName = file.getFileName().toString();
+
+        for (String ext : extensions) {
+
+            if (fileName.endsWith("." + ext)) {
+
+                long size = Files.size(file);
+
+                // ukupna veličina po ekstenziji
+                sizesByExtension.put(
+                        ext,
+                        sizesByExtension.get(ext) + size
+                );
+
+                // veličina samo za trenutni direktorij
+                Path parent = file.getParent();
+
+                directorySizes.put(
+                        parent,
+                        directorySizes.getOrDefault(parent, 0L) + size
+                );
+            }
+        }
+
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc)
+            throws IOException {
+
+        long size = directorySizes.getOrDefault(dir, 0L);
+
+        System.out.println(dir + " -> " + size + " bytes");
+
+        return FileVisitResult.CONTINUE;
+    }
+}
+
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+
+        ListTypeAnalyzer analyzer =
+                new ListTypeAnalyzer(List.of("txt", "java", "pdf"));
+
+        Files.walkFileTree(Path.of("C:/test"), analyzer);
+
+        System.out.println(analyzer.getSizesByExtension());
+    }
+}

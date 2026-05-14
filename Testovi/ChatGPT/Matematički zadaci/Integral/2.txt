@@ -1,0 +1,313 @@
+Treba izračunati
+
+∫
+x
+3
+−1
+2x
+	​
+
+dx.
+
+Najpre rastavimo imenilac:
+
+x
+3
+−1=(x−1)(x
+2
++x+1).
+
+Zatim uradimo parcijalne razlomke:
+
+x
+3
+−1
+2x
+	​
+
+=
+x−1
+A
+	​
+
++
+x
+2
++x+1
+Bx+C
+	​
+
+.
+
+Dobijamo sistem i rešenje:
+
+A=
+3
+2
+	​
+
+,B=−
+3
+2
+	​
+
+,C=
+3
+2
+	​
+
+.
+
+Dakle,
+
+x
+3
+−1
+2x
+	​
+
+=
+3(x−1)
+2
+	​
+
++
+x
+2
++x+1
+−
+3
+2
+	​
+
+x+
+3
+2
+	​
+
+	​
+
+.
+
+Integral postaje
+
+∫
+x
+3
+−1
+2x
+	​
+
+dx=
+3
+2
+	​
+
+∫
+x−1
+dx
+	​
+
++
+3
+2
+	​
+
+∫
+x
+2
++x+1
+−x+1
+	​
+
+dx.
+
+Za drugi integral napišemo
+
+−x+1=−
+2
+1
+	​
+
+(2x+1)+
+2
+3
+	​
+
+.
+
+Pa je
+
+3
+2
+	​
+
+∫
+x
+2
++x+1
+−x+1
+	​
+
+dx=−
+3
+1
+	​
+
+∫
+x
+2
++x+1
+2x+1
+	​
+
+dx+∫
+x
+2
++x+1
+dx
+	​
+
+.
+
+Sada:
+
+−
+3
+1
+	​
+
+∫
+x
+2
++x+1
+2x+1
+	​
+
+dx=−
+3
+1
+	​
+
+ln(x
+2
++x+1),
+
+a pošto
+
+x
+2
++x+1=(x+
+2
+1
+	​
+
+)
+2
++
+4
+3
+	​
+
+,
+
+dobijamo
+
+∫
+x
+2
++x+1
+dx
+	​
+
+=
+3
+	​
+
+2
+	​
+
+arctan(
+3
+	​
+
+2x+1
+	​
+
+).
+
+Konačno,
+
+∫
+x
+3
+−1
+2x
+	​
+
+dx=
+3
+2
+	​
+
+ln∣x−1∣−
+3
+1
+	​
+
+ln(x
+2
++x+1)+
+3
+	​
+
+2
+	​
+
+arctan(
+3
+	​
+
+2x+1
+	​
+
+)+C
+	​
+
+
+Možemo i kraće zapisati logaritamski deo kao
+
+3
+1
+	​
+
+ln
+	​
+
+x
+2
++x+1
+(x−1)
+2
+	​
+
+	​
+
++
+3
+	​
+
+2
+	​
+
+arctan(
+3
+	​
+
+2x+1
+	​
+
+)+C
+	​
+
+.

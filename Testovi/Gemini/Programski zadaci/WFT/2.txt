@@ -1,0 +1,82 @@
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+
+public class ListTypeAnalyzer extends SimpleFileVisitor<Path> {
+    private final Set<String> targetExtensions;
+    private final Map<String, Long> extensionSizes = new HashMap<>();
+    private long currentDirTotalSize = 0;
+
+    public ListTypeAnalyzer(List<String> extensions) {
+        this.targetExtensions = new HashSet<>(extensions);
+        // Inicijalizacija mape s nula kako bi svi ključevi bili prisutni
+        for (String ext : extensions) {
+            extensionSizes.put(ext, 0L);
+        }
+    }
+
+    public Map<String, Long> getSizesByExtension() {
+        return extensionSizes;
+    }
+
+    @Override
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+        // Resetiramo brojač za novi direktorij, ali pošto se walkFileTree kreće rekurzivno,
+        // moramo paziti na ispis. Jednostavnije je izračunati veličinu unutar same metode.
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+        String fileName = file.getFileName().toString();
+        String extension = getExtension(fileName);
+
+        if (targetExtensions.contains(extension)) {
+            long size = attrs.size();
+            // Ažuriranje ukupne mape za metodu getSizesByExtension
+            extensionSizes.put(extension, extensionSizes.get(extension) + size);
+        }
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+        // Izračun sume datoteka sa zadanim ekstenzijama samo za OVAJ direktorij
+        long dirSum = 0;
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path entry : stream) {
+                if (Files.isRegularFile(entry)) {
+                    String ext = getExtension(entry.getFileName().toString());
+                    if (targetExtensions.contains(ext)) {
+                        dirSum += Files.size(entry);
+                    }
+                }
+            }
+        }
+        
+        // Ispis od dna prema vrhu osiguran je mehanizmom postVisitDirectory
+        System.out.println("Direktorij: " + dir + " | Ukupna veličina (zadane ekstenzije): " + dirSum + " bytes");
+        
+        return FileVisitResult.CONTINUE;
+    }
+
+    private String getExtension(String fileName) {
+        int lastIndexOf = fileName.lastIndexOf(".");
+        if (lastIndexOf == -1) {
+            return ""; // Datoteka nema ekstenziju
+        }
+        return fileName.substring(lastIndexOf + 1);
+    }
+}
+
+public static void main(String[] args) throws IOException {
+    Path startPath = Paths.get("putanja/do/direktorija");
+    ListTypeAnalyzer analyzer = new ListTypeAnalyzer(Arrays.asList("txt", "pdf", "zip"));
+    
+    Files.walkFileTree(startPath, analyzer);
+    
+    Map<String, Long> finalResults = analyzer.getSizesByExtension();
+    System.out.println("Ukupno po ekstenzijama: " + finalResults);
+}
+```</Path>

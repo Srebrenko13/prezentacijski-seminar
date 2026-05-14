@@ -1,0 +1,272 @@
+Neka su razredi:
+
+4.a: 15 učenika
+4.b: 22 učenika
+4.c: 20 učenika
+
+Treba izabrati delegaciju od 6 učenika.
+
+(a) Iz svakog razreda po dva predstavnika
+
+Biramo:
+
+2 od 15 iz 4.a
+2 od 22 iz 4.b
+2 od 20 iz 4.c
+
+Koristimo kombinacije:
+
+(
+2
+15
+	​
+
+)(
+2
+22
+	​
+
+)(
+2
+20
+	​
+
+)
+
+(
+2
+15
+	​
+
+)(
+2
+22
+	​
+
+)(
+2
+20
+	​
+
+)
+
+Računamo:
+
+(
+2
+15
+	​
+
+)=105,(
+2
+22
+	​
+
+)=231,(
+2
+20
+	​
+
+)=190
+105⋅231⋅190=4606350
+
+Odgovor:
+
+4606350
+	​
+
+(b) U delegaciji je barem jedan predstavnik svakog razreda
+
+Tražimo sve raspodjele 6 učenika među tri razreda tako da svaki razred daje barem jednog učenika.
+
+Moguće raspodjele su:
+
+1,1,4
+1,2,3
+2,2,2
+
+i sve njihove permutacije.
+
+Zato je broj načina:
+
+(
+1
+15
+	​
+
+)(
+1
+22
+	​
+
+)(
+4
+20
+	​
+
+)+(
+1
+15
+	​
+
+)(
+4
+22
+	​
+
+)(
+1
+20
+	​
+
+)+(
+4
+15
+	​
+
+)(
+1
+22
+	​
+
+)(
+1
+20
+	​
+
+)
++(
+1
+15
+	​
+
+)(
+2
+22
+	​
+
+)(
+3
+20
+	​
+
+)+(
+1
+15
+	​
+
+)(
+3
+22
+	​
+
+)(
+2
+20
+	​
+
+)+(
+2
+15
+	​
+
+)(
+1
+22
+	​
+
+)(
+3
+20
+	​
+
+)
++(
+2
+15
+	​
+
+)(
+3
+22
+	​
+
+)(
+1
+20
+	​
+
+)+(
+3
+15
+	​
+
+)(
+1
+22
+	​
+
+)(
+2
+20
+	​
+
+)+(
+3
+15
+	​
+
+)(
+2
+22
+	​
+
+)(
+1
+20
+	​
+
+)+(
+2
+15
+	​
+
+)(
+2
+22
+	​
+
+)(
+2
+20
+	​
+
+)
+
+∑(
+a
+15
+	​
+
+)(
+b
+22
+	​
+
+)(
+c
+20
+	​
+
+),a+b+c=6, a,b,c≥1
+
+Nakon računanja dobije se:
+
+66792825
+	​
+
+
+Odgovor:
+
+66792825
+	​

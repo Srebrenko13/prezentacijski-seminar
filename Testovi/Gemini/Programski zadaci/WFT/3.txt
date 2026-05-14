@@ -1,0 +1,81 @@
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+
+public class ListTypeAnalyzer extends SimpleFileVisitor<Path> {
+
+    private final Set<String> targetExtensions;
+    private final Map<String, Long> sizesByExtension = new HashMap<>();
+    private final Map<Path, Long> directoryCurrentLevelSize = new HashMap<>();
+
+    public ListTypeAnalyzer(List<String> extensions) {
+        this.targetExtensions = new HashSet<>(extensions);
+        // Inicijalizacija mape s nula kako bi svi ključevi bili prisutni
+        for (String ext : extensions) {
+            sizesByExtension.put(ext, 0L);
+        }
+    }
+
+    public Map<String, Long> getSizesByExtension() {
+        return sizesByExtension;
+    }
+
+    @Override
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+        // Pri ulasku u direktorij, inicijaliziramo njegovu veličinu na 0
+        directoryCurrentLevelSize.put(dir, 0L);
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+        String fileName = file.getFileName().toString();
+        String extension = getFileExtension(fileName);
+
+        if (targetExtensions.contains(extension)) {
+            long fileSize = attrs.size();
+            
+            // 1. Ažuriranje globalne mape po ekstenzijama
+            sizesByExtension.put(extension, sizesByExtension.get(extension) + fileSize);
+            
+            // 2. Ažuriranje veličine trenutnog direktorija (bez poddirektorija)
+            Path parent = file.getParent();
+            directoryCurrentLevelSize.put(parent, directoryCurrentLevelSize.get(parent) + fileSize);
+        }
+        
+        return FileVisitResult.CONTINUE;
+    }
+
+    @Override
+    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+        // Ispis veličine direktorija (samo datoteke zadanih ekstenzija u njemu)
+        // Budući da se postVisitDirectory poziva nakon što su svi poddirektoriji obrađeni,
+        // ispis će prirodno ići od dna stabla prema vrhu.
+        long size = directoryCurrentLevelSize.getOrDefault(dir, 0L);
+        System.out.println("Direktorij: " + dir + " | Veličina (zadane ekstenzije): " + size + " bytes");
+        
+        return FileVisitResult.CONTINUE;
+    }
+
+    private String getFileExtension(String fileName) {
+        int lastIndexOf = fileName.lastIndexOf(".");
+        if (lastIndexOf == -1) {
+            return ""; // Datoteka nema ekstenziju
+        }
+        return fileName.substring(lastIndexOf + 1);
+    }
+}
+
+
+public static void main(String[] args) throws IOException {
+    Path startPath = Paths.get("putanja/do/direktorija");
+    List<String> extensions = Arrays.asList("pdf", "txt", "java");
+    
+    ListTypeAnalyzer analyzer = new ListTypeAnalyzer(extensions);
+    Files.walkFileTree(startPath, analyzer);
+    
+    System.out.println("\nUkupno po ekstenzijama:");
+    analyzer.getSizesByExtension().forEach((ext, size) -> 
+        System.out.println(ext + ": " + size + " bytes"));
+}
